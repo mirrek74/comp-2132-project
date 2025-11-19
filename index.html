@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>COMP-3121 Main Project</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans" rel="stylesheet">
+        <link href="./css/project10.css" rel="stylesheet">
+        <script src="./classes/Keyboard.js" defer></script>
+        <script src="./classes/Game.js" defer></script>
+        <script src="./script/project10.js" defer></script>
+    </head>
+    <body>
+        <div id="main" class="content">
+            <div class="theatre">
+                <div id="scene" style="width:70%; text-align: center;  margin: 0 auto; ">
+                    <img id="sceneImage" class="fade-img" src="./images/stage0.png" style="width: 100%;">
+                </div>
+                <div id="progress">
+        
+                </div>        
+            </div>
+            <div id="keyboard">
+                <div id="upperRow"></div>
+                <div id="middleRow"></div>
+                <div id="lowerRow"></div>
+            </div>
+            <button class="btn">ABCDEF Keyboard Layout</button>
+            <button class="btn">QWERTY Keyboard Layout</button>
+        </div>
+
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h2>Game Over!!</h2>
+                <p id="txtResult">This is a full-screen modal window.</p>
+
+                <div class="modal-buttons">
+                    <button id="btnPlayAgain" class="btn primary">Play Again</button>
+                    <button id="btnDone" class="btn secondary">No, Thanks!</button>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
