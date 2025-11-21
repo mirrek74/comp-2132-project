@@ -1,3 +1,5 @@
-p {
-  color: yellow;
+.btn-active {
+  border: 2px gray solid;
+  background-color: gray;
+  color: white;
 }

@@ -26,7 +26,7 @@ class Keyboard {
             this.lowerRow = 'STUVWXYZ';
         }
         this.draw();
-        this.listen();
+        this.listen();                
     }
 
     draw() {

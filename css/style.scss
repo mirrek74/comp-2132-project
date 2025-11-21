@@ -1,6 +1,11 @@
-$primary_color: yellow;
+$primary_color: black;
+$btn_color : maroon;
+$active_fore: white;
+$active_border_color : gray;
 
-
-p {
-    color: $primary_color;
+.btn-active {
+    border: 2px $active_border_color solid;
+    background-color: gray;
+    color: $active_fore;
 }
+

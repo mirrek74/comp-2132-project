@@ -1,7 +1,8 @@
 class Game {
-    static dictionaryPath = "json/project10data.json";
+    static dictionaryPath = "/json/";
 
     dictionary;
+    topic;
 
     secretWord = '';
     hint = '';
@@ -18,7 +19,7 @@ class Game {
     }
 
     async fetchRandomWord() {
-        const response = await fetch(Game.dictionaryPath);
+        const response = await fetch(Game.dictionaryPath + this.topic + '.json');
 
         if (!response.ok) {
             console.log("Error fetching file");
