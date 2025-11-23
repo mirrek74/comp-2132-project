@@ -7,19 +7,7 @@ const scene = document.getElementById('sceneImage');
 const theatre = document.getElementById('theatre');
 const bye = document.getElementById('bye');
 const btnPlayAgain = document.getElementById('btnPlayAgain');
-
-btnPlayAgain.addEventListener('click', function() {
-    closeModal();
-    restartGame();
-});
-
 const btnDone = document.getElementById('btnDone');
-
-btnDone.addEventListener('click', function() {
-    closeModal();
-    theatre.style.display = 'none';
-    bye.style.display = 'block';
-});
 
 // setup keyboard
 const keyboard = new Keyboard(upperRow,middleRow,lowerRow);
@@ -28,6 +16,19 @@ const btnQWER = document.getElementById('btnQWER');
 const btnAnimals = document.getElementById('btnAnimals');
 const btnCountries = document.getElementById('btnCountries');
 const btnMovies = document.getElementById('btnMovies');
+
+
+// add listerners to the buttons
+btnPlayAgain.addEventListener('click', function() {
+    closeModal();
+    restartGame();
+});
+
+btnDone.addEventListener('click', function() {
+    closeModal();
+    theatre.style.display = 'none';
+    bye.style.display = 'block';
+});
 
 btnABCD.addEventListener('click',function() {
     btnABCD.classList.add('btn-active');
@@ -65,7 +66,6 @@ btnMovies.addEventListener('click',function() {
     restartGame();
 });
 
-
 // setup game
 const game = new Game();
 game.topic = 'countries';
@@ -80,43 +80,44 @@ async function restartGame() {
     theatre.style.display = 'block';
     bye.style.display = 'none';
     document.getElementById('theatre').style.opacity = 1;
-    btnABCD.disabled = false;
-    btnQWER.disabled = false;
 }
-
-
 
 function evaluate(keyId, keyText) {
     game.turns++;
-    btnABCD.disabled = true;
-    btnQWER.disabled = true;
+    // disable button after clicked
     const key = document.getElementById(keyId);
     key.disabled = true;
-    key.classList.add('btnDisabled');
+    key.classList.add('btn-disabled');
+    keyboard.disabledButtons.push(keyText);
+
+    // invalid key test
     if(game.secretWord.toUpperCase().indexOf(keyText) == -1 ) {
         game.wrongGuesses++;
-        console.log('Wrong Guess #',game.wrongGuesses);
         swapImage(game.wrongGuesses);
     }
+
+    // number of attempts exceeded test
     if(game.wrongGuesses > 6) {
         fadeOut(theatre, 2000);
         setTimeout(function() {
-            openModal(`Sorry!! You've lost. The correct answer is "${game.secretWord}".`);
+            openModal(`Sorry!! You've lost. The correct answer was "${game.secretWord}".`);
         }, 2000);        
     }
 
+    // valid guess, update progress
     for(let i = 0; i < game.secretWord.length; i++) {
         if(keyText == game.secretWord[i].toUpperCase()) {
             game.hiddenWord[i] = keyText;
             showProgress();
         }
     }
+
+    // success, game is over
     if(game.hiddenWord.join("").toUpperCase()==game.secretWord.toUpperCase()) {
-        openModal(`Congratulations!! "${game.secretWord}" was the correct answer! You've guess the secret word in ${game.turns} turns.`);
+        openModal(`Congratulations!! "${game.secretWord}" was the correct answer! You've guessed the secret word in ${game.turns} turns.`);
     }
 
 }
-
 
 // javascript animation for fading the element out 
 function fadeOut(element, duration =1000) {
@@ -134,22 +135,25 @@ function fadeOut(element, duration =1000) {
     }, interval);
 }
 
-
+// swap images as game progresses
 function swapImage(stage) {
     scene.src = `./images/stage0${stage}.png`;
     scene.title = stage;
 }
 
+// open modal window for GAME OVER
 function openModal(text) {
     const txtResult = document.getElementById('txtResult');
     txtResult.innerHTML = text;
     document.getElementById("modal").classList.add("show");
 }
 
+// close modal windows
 function closeModal() {
     document.getElementById("modal").classList.remove("show");
 }
 
+// update progress indicator
 function showProgress() {
     const progress = document.getElementById('progress');
     let html = ''

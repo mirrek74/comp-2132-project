@@ -1,11 +1,161 @@
-$primary_color: black;
-$btn_color : maroon;
-$active_fore: white;
-$active_border_color : gray;
+$colors: (
+    primary_color: black,
+    btn_color : maroon,
+    active_color: white,
+    selected_color: red,
+);
 
-.btn-active {
-    border: 2px $active_border_color solid;
-    background-color: gray;
-    color: $active_fore;
+
+@mixin active-button {
+    background-color: map-get($colors, "selected_color");
+    color: map-get($colors, "active_color");
 }
 
+@mixin key_button {
+    background-color: map-get($colors, "btn_color");
+    color: map-get($colors, "active_color");
+}
+
+.btn-active {
+    @include active-button();
+}
+
+.btn-disabled {
+    transition: 1s;
+    cursor: not-allowed;
+    opacity: 0.4;    
+}
+
+.btnKey {
+    @include key_button();
+    border: none;
+    padding: 10px 18px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn.primary {
+    background: #007bff;
+    color: map-get($colors, "active_color");
+}
+
+.btn.secondary {
+    background: map-get($colors, "active_color");
+    color: map-get($colors, "primary_color");
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+#keyboard {
+    border: 3px solid map-get($colors , "btn_color" );
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    width: 70%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: map-get($colors, "active_color");
+  color: #333;
+  line-height: 1.6;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 1.5rem 1.5rem 0 1.5rem ;
+  max-width: 1200px;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.theatre {
+    border-radius: 30px;
+}
+
+#scene {
+    line-height: 0px;
+}
+
+#progress {
+    background-image: url(../images//ground.png);
+    background-size:cover;    
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 70%;
+    margin: 0 auto; 
+}
+
+.letter {
+    font-size: 20pt;
+    margin: 5px;
+    padding: 5px 5px 0 5px;
+    font-weight: bold;
+    width: 30px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: map-get($colors, "active_color");
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+
+.fade-img {
+    opacity: 1;
+}
+
+.fade-img.fade-out {
+    opacity: 0;
+}
