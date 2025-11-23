@@ -1,5 +1,5 @@
 class Game {
-    static dictionaryPath = "/json/";
+    static dictionaryPath = "json/";
 
     dictionary;
     topic;
